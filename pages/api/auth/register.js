@@ -25,7 +25,8 @@ export default async function handler(req, res) {
         }
   
         // Save user details
-        const newUser = new User({ username, email, password });
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new User({ username, email, password:hashedPassword });
         await newUser.save();
   
         return res.status(201).json({ message: 'User registered successfully.' });

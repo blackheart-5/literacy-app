@@ -1,40 +1,53 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 
-const MONGODB_URL = process.env.MONGODB_URL;
+const MONGO_URL = 'mongodb+srv://tsekpopa:dSNlqdKcW9XlXWLg@users.zto7k.mongodb.net/?retryWrites=true&w=majority&appName=USERS';
 
+// console.log('MongoDB URL:', process.env.MONGODB_URL);
 
+if (!MONGO_URL) {
+        throw new Error('Missing MONGODB_URL environment variable');
+    }
 
+let cached = global.mongoose;
 
-// if (!MONGODB_URL){
-//     throw new Error('Sorry missing environment variable of MOGODB_URL in .env')
-// }
+if (!cached) {
+    cached = global.mongoose = { conn: null, promise: null };
+}
 
-// let cached = global.mogoose;
+async function dbConnect(){
 
-// if (!cached){
-//     cached = global.mongoose = {conn: null, promise:null};
-// }
-
-const dbConnect = async() => {
     try {
         //console.log('MongoDB URI:', process.env.MONGODB_URL);
 
-        await mongoose.connect(MONGODB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        
+        if (cached.conn) {
+            return cached.conn;
+        }
+
+        if (!cached.promise) {
+            const opts = {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            };
+
+            cached.promise = mongoose.connect(MONGO_URL, opts).then((mongoose) => {
+                return mongoose;
+            });
+        }
+
+        cached.conn = await cached.promise;
+        return cached.conn;
         console.log('MongoDB connected'); //check if connected
-    } catch (error) { 
+    } catch (error) {
         console.log(error, 'MongoDB connection not established'); //
-        process.exit(1);
     }
 };
 
 export default dbConnect
+
+
+
+
+
 
 

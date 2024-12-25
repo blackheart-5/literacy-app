@@ -1,68 +1,60 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import dbConnect from '/utils/database'
 import Link from 'next/link';
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+
+
+export default function LoginUser() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const router = useRouter();
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      const res = await fetch('/Login', {
+      const res =  await fetch('/api/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        headers:{'Content-Types': 'application/json'},
+        body: JSON.stringify({email, password})
       });
 
-      if (res.ok) {
+      const data = await res.json();
+      if (data.success){
+        //alert('Login successful');
+        console.log('Login successful');
         router.push('/learn'); // Redirect to learning page on success
-      } else {
-        const data = await res.json();
+      }else{
         setError(data.message || 'Login failed');
       }
-    } catch (error) {
+    } catch (err){
       setError('An error occurred. Please try again.');
     }
+
+
   };
+
 
   return (
     <div>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-        <div>
-          <button> <Link href="/Register">
-           SignUp
-        </Link></button>
-        </div>
+        <label htmlFor='email'>Email:</label><br />
+        <input type="text" id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/><br/>
+
+        <label htmlFor= 'password'> Password:</label><br/>
+        <input type='text' id= 'password' value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
+
+        <button type='submit'>Sign-in</button><br/>
+        <button>
+          <Link href="/Register">Sign-Up</Link>
+        </button><br/>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+
     </div>
   );
 }
+

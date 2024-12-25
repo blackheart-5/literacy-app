@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import dbConnect from '/utils/database'
-import User from '../models/User';
+
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -15,20 +14,21 @@ export default function Register() {
     setError('');
   
     try {
-      const res = await fetch('/Register', {
+      const res = await fetch('api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password }), // Send sign-up details
       });
+
+      const data = await res.json();
   
-      if (res.ok) {
+      if (data.success) {
         router.push('/Login'); // Redirect to login page
       } else {
-        const data = await res.json();
         setError(data.message || 'Registration failed');
       }
     } catch (error) {
-      setError('An error occurred. Please try again.');
+      setError('User Exists. Please try again.');
     }
   };
   
