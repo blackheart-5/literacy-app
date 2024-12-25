@@ -8,6 +8,8 @@ export default async function handler(req,res){
     }
 
     try{
+        //not needed to convert raw request body to json since it always comes
+        //in as json 
         const {username, email, password} = req.body;
 
         if (!username || !email || !password){
@@ -17,7 +19,7 @@ export default async function handler(req,res){
 
         await dbConnect();
         
-
+        //check database of matching users
         const existingUser = await User.findOne({email});
         if (existingUser){
             return res.status(400).json({message:'User already in use.'});
@@ -26,9 +28,9 @@ export default async function handler(req,res){
         const hashedPassword = await bycrypt.hash(password, 10);
 
         const newUser = new User({username:username, email:email, password:hashedPassword});
-        console.log(newUser);
+        //console.log(newUser);
         await newUser.save();
-        console.log('variable parsing');
+        
 
 
         // alert("Thank you for signing up, " + username);
