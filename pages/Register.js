@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 
 export default function Register() {
+  //store variables from user input form
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +25,7 @@ export default function Register() {
       //raw response from backend is parse as json
       const data = await res.json();
   
-      if (data.success) {
+      if (data.success) { // valid response
         router.push('/Login'); // Redirect to login page
       } else {
         setError(data.message || 'Registration failed');
