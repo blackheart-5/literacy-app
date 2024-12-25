@@ -7,17 +7,17 @@ export default async function handler(req,res){
         return res.status(405).json({ message: 'Method not allowed' });//we need POST Method
     }
     try {
+        //convert raw request body to json
         const body = JSON.parse(req.body);
-
+        //body.email || body.password
         const {email, password} = body;
-        console.log(email, password);
+        //console.log(email, password);
 
         if (!email || !password) {
             return res.status(400).json({message:'Provide both email and password.'});
         }
 
-        console.log('creating user and check');
-
+        //console.log('creating user and check');
         await dbConnect();
         let user = await User.findOne({email});
         if (!user){
