@@ -14,12 +14,14 @@ export default function Register() {
     setError('');
   
     try {
+      //send a http post request to the backend
       const res = await fetch('api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password }), // Send sign-up details
       });
 
+      //raw response from backend is parse as json
       const data = await res.json();
   
       if (data.success) {
