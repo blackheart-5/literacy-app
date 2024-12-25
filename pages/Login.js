@@ -42,10 +42,14 @@ export default function LoginUser() {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor='email'>Email:</label><br />
-        <input type="text" id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/><br/>
+        <input type="text" 
+        id='email' 
+        value={email} onChange={(e) => setEmail(e.target.value)} required/><br/>
 
         <label htmlFor= 'password'> Password:</label><br/>
-        <input type='text' id= 'password' value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
+        <input type='text' 
+        id= 'password' 
+        value={password} onChange={(e) => setPassword(e.target.value)} required/><br/>
 
         <button type='submit'>Sign-in</button><br/>
         <button>
