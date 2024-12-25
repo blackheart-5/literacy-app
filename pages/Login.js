@@ -11,6 +11,7 @@ export default function LoginUser() {
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
+    //prevent automatic page refresh
     e.preventDefault();
     setError('');
 
