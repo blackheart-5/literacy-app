@@ -15,33 +15,46 @@ if (!cached) {
     cached = global.mongoose = { conn: null, promise: null };
 }
 
-async function dbConnect(){
+// async function dbConnect(){
 
-    try {
-        //console.log('MongoDB URI:', process.env.MONGODB_URL);
+//     try {
+//         //console.log('MongoDB URI:', process.env.MONGODB_URL);
 
-        if (cached.conn) {
-            return cached.conn;
-        }
+//         if (cached.conn) {
+//             return cached.conn;
+//         }
 
-        if (!cached.promise) {
-            const opts = {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            };
+//         if (!cached.promise) {
+//             const opts = {
+//                 useNewUrlParser: true,
+//                 useUnifiedTopology: true,
+//             };
 
-            cached.promise = mongoose.connect(MONGO_URL, opts).then((mongoose) => {
-                return mongoose;
-            });
-        }
+//             cached.promise = mongoose.connect(MONGO_URL, opts).then((mongoose) => {
+//                 return mongoose;
+//             });
+//         }
 
-        cached.conn = await cached.promise;
-        return cached.conn;
-        console.log('MongoDB connected'); //check if connected
-    } catch (error) {
-        console.log(error, 'MongoDB connection not established'); //
-    }
+//         cached.conn = await cached.promise;
+//         return cached.conn;
+//         console.log('MongoDB connected'); //check if connected
+//     } catch (error) {
+//         console.log(error, 'MongoDB connection not established'); //
+//     }
+// };
+
+
+const dbConnect = async () => {
+  if (mongoose.connection.readyState >= 1) {
+    return; // Already connected
+  }
+
+  return mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 };
+
 
 export default dbConnect
 
