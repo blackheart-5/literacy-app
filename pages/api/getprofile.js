@@ -1,10 +1,9 @@
 import fetch from 'node-fetch';
-import User from '@/models/User';
 import { use } from 'react';
 
 
 
-export default async function getUserProfile() {
+export default async function getUserProfile(email) {
   try {
     const response = await fetch(`/api/profile`,{
         method: 'GET',
