@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import getUserProfile from '../pages/api/profile.js';
 import {useSession} from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 
 
 
@@ -41,5 +42,22 @@ const ProfilePage = () => {
     </div>
   );
 };
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/login', // Redirect to login if no session
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session }, // Pass session as a prop
+  };
+}
+
 
 export default ProfilePage;
