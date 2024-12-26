@@ -17,7 +17,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-    }
+    },
+    languages: [String], // Optional field for languages
+
+    wordsLearned: {
+         type: Number, 
+         default: 0 
+    } // Optional field for word count
 
     // progress:{
     //     type:Map,

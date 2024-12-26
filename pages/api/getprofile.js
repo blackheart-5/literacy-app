@@ -1,23 +1,28 @@
 import fetch from 'node-fetch';
-import dbConnect from '@/utils/database';
+import User from '@/models/User';
+import { use } from 'react';
 
 
 
-export const getUserProfile = async () => {
+export default async function getUserProfile() {
   try {
-    const response = await fetch();
+    const response = await fetch(`/api/profile`,{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          
+          //'Authorization': `Bearer ${localStorage.getItem('token')}` // Assuming you store the auth token in localStorage
+          },
+        body: JSON.stringify({email, username})
+      }
+    );
+  
     return handleResponse(response);
   } catch (error) {
     console.error('Error fetching user profile:', error);
     throw error;
   }
 };
-
-
-
-
-
-
 
 async function handleResponse(response) {
   if (!response.ok) {
