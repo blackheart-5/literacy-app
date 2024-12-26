@@ -60,14 +60,14 @@ const SettingsPage = () => {
               </li>
 
               <li>
-                <button> <Link href="/profile">Profile</Link></button>
+                <button> <Link href="/Profile">Profile</Link></button>
               </li>
-              
+
               <li>
-                  <button> <Link href="/progress">Progress</Link> </button>
+                  <button> <Link href="/Progress">Progress</Link> </button>
               </li>
-              
-              
+
+
             </ul>
           </nav>
         </div>
