@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 //import { getUserProfile } from '../api/vocabulary/api';
+
 import dbConnect from '@/utils/database';
 
 const ProfilePage = () => {
