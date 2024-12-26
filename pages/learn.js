@@ -53,45 +53,44 @@ const LearnPage = () => {
   if (vocabulary.length === 0) return <div>No vocabulary found for the selected difficulty.</div>;
 
   return (
-    <div>
-      <div className="learn-header">
-        <h1>Learn Vocabulary</h1> 
+    <body>
+      <div>
+        <div className="learn-header">
+          <h1>Learn Vocabulary</h1> 
+        </div>
+
+        <div class='learn-nav'>
+          <nav>
+            <ul>
+              <li>
+                <button> <Link href="/learn">Home</Link> </button>
+              </li>
+              <li>
+                <button><Link href="/Login">LogOut</Link> </button>
+              </li>
+              <li>
+                <button><Link href="/settings">Settings</Link></button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <select value={difficulty} onChange={handleDifficultyChange}>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        {vocabulary[currentIndex] && (
+          <Flashcard
+            word={vocabulary[currentIndex].word}
+            translation={vocabulary[currentIndex].translation}
+            image={vocabulary[currentIndex].image}
+            audio={vocabulary[currentIndex].audio}
+          />
+        )}
+        <button id='next_vocab' onClick={handleNext}>Next</button>
       </div>
-      <nav>
-        <ul>
-          <li>
-            <button> <Link href="/learn">Home</Link> </button>
-          </li>
-          <li>
-            <button><Link href="/Login">LogOut</Link> </button>
-          </li>
-          <li>
-            <button> <Link href="/progress">Progress</Link> </button>
-          </li>
-          <li>
-           <button> <Link href="/profile">Profile</Link></button>
-          </li>
-          <li>
-            <button><Link href="/settings">Settings</Link></button>
-          </li>
-        </ul>
-      </nav>
-      
-      <select value={difficulty} onChange={handleDifficultyChange}>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
-      {vocabulary[currentIndex] && (
-        <Flashcard
-          word={vocabulary[currentIndex].word}
-          translation={vocabulary[currentIndex].translation}
-          image={vocabulary[currentIndex].image}
-          audio={vocabulary[currentIndex].audio}
-        />
-      )}
-      <button onClick={handleNext}>Next</button>
-    </div>
+    </body>
   );
 };
 

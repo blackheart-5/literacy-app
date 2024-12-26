@@ -1,7 +1,23 @@
 import fetch from 'node-fetch';
 import dbConnect from '@/utils/database';
 
-const API_BASE_URL = process.env.MONGODB_URL;
+
+
+export const getUserProfile = async () => {
+  try {
+    const response = await fetch();
+    return handleResponse(response);
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    throw error;
+  }
+};
+
+
+
+
+
+
 
 async function handleResponse(response) {
   if (!response.ok) {
@@ -13,7 +29,7 @@ async function handleResponse(response) {
 
 export const updateUserSettings = async (settings) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/user/settings`, {
+    const response = await fetch(`/api/settings`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -28,16 +44,3 @@ export const updateUserSettings = async (settings) => {
   }
 };
 
-export const getUserProfile = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/user/profile`, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    });
-    return handleResponse(response);
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-    throw error;
-  }
-};

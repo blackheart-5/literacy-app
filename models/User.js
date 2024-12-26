@@ -33,10 +33,12 @@ const UserSchema = new mongoose.Schema({
 
 // try {
 //   // Check if the model already exists, or create a new one
-//   const User = mongoose.models.User || mongoose.model('User', UserSchema);
+//   const User_model = mongoose.models.User || mongoose.model('User', UserSchema);
+  
 // } catch (error) {
 //   console.error('Error creating or retrieving the User model:', error);
 // }
-// console.log(User);
+// // console.log(User);
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
+//let User = User_model
 export default User
