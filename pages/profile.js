@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import getUserProfile from '../api/profile.js';
+import getUserProfile from '../pages/api/getprofile.js';
 import {useSession} from 'next-auth/react';
 import { getSession } from 'next-auth/react';
 
