@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import { use } from 'react';
 
 
 
@@ -9,10 +8,10 @@ export default async function getUserProfile() {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          
+
           //'Authorization': `Bearer ${localStorage.getItem('token')}` // Assuming you store the auth token in localStorage
           },
-        body: JSON.stringify({email, username})
+        //body: JSON.stringify({email, username})
       }
     );
   

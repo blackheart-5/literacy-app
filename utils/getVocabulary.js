@@ -1,4 +1,4 @@
-import { seedData } from '../models/vocabularyData';
+import { seedData } from '../models/vocabularydata';
 
 export function getVocabulary(difficulty) {
   return new Promise((resolve) => {
