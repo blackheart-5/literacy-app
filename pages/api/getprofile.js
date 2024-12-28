@@ -3,7 +3,7 @@ import { use } from 'react';
 
 
 
-export default async function getUserProfile(email) {
+export default async function getUserProfile() {
   try {
     const response = await fetch(`/api/profile`,{
         method: 'GET',

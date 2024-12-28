@@ -16,7 +16,7 @@ const ProfilePage = () => {
       const fetchProfile = async () => {
         try {
           console.log('here');
-          const data = await getUserProfile(email);
+          const data = await getUserProfile();
           setProfile(data);
         } catch (err) {
           setError('Failed to load profile. Please try again later.');
